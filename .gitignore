@@ -2,3 +2,5 @@ env/
 app/__pycache__/
 .vscode/
 __pycache__/
+dist/
+build/

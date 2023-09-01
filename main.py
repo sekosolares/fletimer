@@ -9,8 +9,13 @@ def main(page: ft.Page):
   def update_text_count(e, text: str):
     if text == '0':
       text_to_show.value = 'Times Up!'
+      on_finish_timer(e)
     else:
       text_to_show.value = text
+    page.update()
+
+  def set_text_count(e, text: str):
+    text_to_show.value = text
     page.update()
 
   def stop_countdown(e):
@@ -43,7 +48,6 @@ def main(page: ft.Page):
     on_time_change(e)
 
     timer.on_count = lambda: update_text_count(e, f'{timer.actual_count}')
-    timer.on_finish = lambda: on_finish_timer(e)
     timer.start()
     update_text_count(e, f'{timer.actual_count}')
     page.update()
@@ -51,17 +55,19 @@ def main(page: ft.Page):
   def on_time_change(e):
     if countdown_field.value != '':
       timer.set_default_countdown(int(countdown_field.value))
+      set_text_count(e, countdown_field.value)
     else:
       timer.set_default_countdown(0)
+      set_text_count(e, '0')
 
   page.title = "Flet Timer"
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
   page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
-  countdown_field = ft.TextField(label="Seconds", value="3")
+  countdown_field = ft.TextField(label="Seconds", value="0")
   countdown_field.on_change = on_time_change
 
-  text_to_show = ft.Text("-", size=40, weight=ft.FontWeight.BOLD, color=ft.colors.BLUE)
+  text_to_show = ft.Text("0", size=40, weight=ft.FontWeight.BOLD, color=ft.colors.BLUE)
 
   timer = Timer(int(countdown_field.value), in_console=False)
 
@@ -70,9 +76,9 @@ def main(page: ft.Page):
 
   alarm_audio = ft.Audio(
     src=ALARM_AUDIO_SRC,
-    autoplay=True,
     balance=0,
-    volume=0
+    volume=0,
+    autoplay=True
   )
 
   countdown_container = ft.Container(width=100)
@@ -88,4 +94,4 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-  ft.app(target=main, port=3312, view=ft.FLET_APP_WEB)
+  ft.app(target=main, view=ft.FLET_APP_WEB, port=8080)

@@ -17,13 +17,14 @@ class Timer():
   def play(self):
     self.__is_playing = True
     for i in range(self.__countdown_start, -1, -1):
+      if not self.__is_playing:
+        break
+
       self.actual_count = i
 
       if self.on_count:
         self.on_count()
 
-      if not self.__is_playing:
-        break
       else:
         if self.in_console:
           print(self.actual_count)
@@ -37,6 +38,7 @@ class Timer():
   def pause(self):
     self.__is_playing = False
     self.finished = False
+    self.set_start_countdown(self.actual_count)
 
   def reset(self):
     self.actual_count = self.__default_countdown
@@ -44,6 +46,7 @@ class Timer():
 
   def stop(self):
     self.actual_count = self.__default_countdown
+    self.__is_playing = False
     self.finished = True
 
   def set_default_countdown(self, default_countdown: int):
