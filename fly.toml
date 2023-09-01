@@ -10,14 +10,14 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
-[http_service]
-  internal_port = 8080
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
-  max_machines_running = 1
-  processes = ["app"]
+#[http_service]
+#  internal_port = 8080
+#  force_https = true
+#  auto_stop_machines = true
+#  auto_start_machines = true
+#  min_machines_running = 0
+#  max_machines_running = 1
+#  processes = ["app"]
 
 [env]
   FLET_SERVER_PORT = "8080"
