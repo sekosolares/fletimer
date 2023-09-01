@@ -64,6 +64,8 @@ def main(page: ft.Page):
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
   page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
+  title = ft.Text("Fletimer", size=40, weight=ft.FontWeight.BOLD)
+
   countdown_field = ft.TextField(label="Seconds", value="0")
   countdown_field.on_change = on_time_change
 
@@ -71,7 +73,12 @@ def main(page: ft.Page):
 
   timer = Timer(int(countdown_field.value), in_console=False)
 
-  actions_button = ft.ElevatedButton("Start", on_click=start_countdown, bgcolor=ft.colors.GREEN, icon=ft.icons.PLAY_ARROW)
+  actions_button = ft.ElevatedButton(
+    text="Start",
+    on_click=start_countdown,
+    bgcolor=ft.colors.GREEN,
+    icon=ft.icons.PLAY_ARROW
+  )
   actions_button.color = ft.colors.BLACK
 
   alarm_audio = ft.Audio(
@@ -90,7 +97,7 @@ def main(page: ft.Page):
   actions_row = ft.Row([countdown_container, actions_container])
   actions_row.alignment = ft.MainAxisAlignment.CENTER
 
-  page.add(alarm_audio, text_to_show, actions_row)
+  page.add(alarm_audio, title, text_to_show, actions_row)
 
 
 if __name__ == "__main__":
