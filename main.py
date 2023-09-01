@@ -60,7 +60,7 @@ def main(page: ft.Page):
       timer.set_default_countdown(0)
       set_text_count(e, '0')
 
-  page.title = "Flet Timer"
+  page.title = "Fletimer"
   page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
   page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
