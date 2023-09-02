@@ -1,0 +1,14 @@
+{
+  "name": "Fletimer",
+  "short_name": "Fletimer",
+  "description": "Timer application using Flet",
+  "theme_color": "#333",
+  "background_color": "#555",
+  "icons": [
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x4512",
+      "type": "image/png"
+    }
+  ]
+}
