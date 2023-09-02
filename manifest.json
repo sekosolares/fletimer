@@ -1,0 +1,7 @@
+{
+  "name": "Fletimer",
+  "short_name": "Fletimer",
+  "description": "Timer application using Flet",
+  "theme_color": "#333",
+  "background_color": "#555"
+}
