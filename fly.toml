@@ -4,7 +4,7 @@
 #
 
 app = "fletimer"
-primary_region = "lax"
+primary_region = "mia"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
