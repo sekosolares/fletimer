@@ -12,7 +12,6 @@ def extract_numbers(string):
   return numbers
 
 def main(page: ft.Page):
-  # Sound Effect by https://pixabay.com/es/users/microsammy-22905943/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8761">Microsammy</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=8761
   ALARM_AUDIO_SRC = 'clock-alarm.mp3'
 
   def set_countdown_field_disabled(e, disabled):
@@ -54,7 +53,6 @@ def main(page: ft.Page):
   def stop_countdown(e):
     alarm_audio.pause()
     actions_row.controls = [
-      countdown_field_container,
       start_button_container
     ]
     page.update()
@@ -71,7 +69,6 @@ def main(page: ft.Page):
     alarm_audio.pause()
     page.update()
     actions_row.controls = [
-      countdown_field_container,
       stop_button_container,
       pause_button_container
     ]
@@ -86,7 +83,6 @@ def main(page: ft.Page):
 
   def pause_countdown(e):
     actions_row.controls = [
-      countdown_field_container,
       stop_button_container,
       start_button_container
     ]
@@ -98,7 +94,6 @@ def main(page: ft.Page):
 
   def resume_countdown(e):
     actions_row.controls = [
-      countdown_field_container,
       stop_button_container,
       pause_button_container
     ]
@@ -129,7 +124,8 @@ def main(page: ft.Page):
     src=ALARM_AUDIO_SRC,
     balance=0,
     volume=0,
-    autoplay=True
+    autoplay=True,
+    release_mode=ft.audio.ReleaseMode.STOP
   )
 
   start_button = ft.ElevatedButton(
@@ -157,6 +153,9 @@ def main(page: ft.Page):
   pause_button.color = ft.colors.BLACK
 
 
+  page.overlay.append(alarm_audio)
+  page.update()
+
   countdown_field_container = ft.Container(width=100)
   countdown_field_container.content = countdown_field
 
@@ -169,11 +168,14 @@ def main(page: ft.Page):
   pause_button_container = ft.Container(width=150)
   pause_button_container.content = pause_button
 
-  actions_row = ft.Row([countdown_field_container, start_button_container])
+  field_row = ft.Row([countdown_field_container])
+  field_row.alignment = ft.MainAxisAlignment.CENTER
+
+  actions_row = ft.Row([start_button_container])
   actions_row.alignment = ft.MainAxisAlignment.CENTER
 
-  page.add(alarm_audio, title, text_to_show, actions_row)
+  page.add(title, text_to_show, field_row, actions_row)
 
 
 if __name__ == "__main__":
-  ft.app(target=main, view=ft.FLET_APP_WEB, port=8080)
+  ft.app(target=main, assets_dir="assets", view=ft.FLET_APP_WEB, port=8080)
