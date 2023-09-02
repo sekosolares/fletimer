@@ -44,11 +44,10 @@ def main(page: ft.Page):
       set_text_count(e, '0')
 
   def play_alarm(e):
-    alarm_audio.pause()
     alarm_audio.volume = 1
     alarm_audio.autoplay = False
     alarm_audio.play()
-    page.update()
+    # page.update()
 
   def stop_countdown(e):
     alarm_audio.pause()
@@ -66,8 +65,9 @@ def main(page: ft.Page):
     page.update()
 
   def start_countdown(e):
-    alarm_audio.pause()
+    page.overlay.append(alarm_audio)
     page.update()
+
     actions_row.controls = [
       stop_button_container,
       pause_button_container
@@ -75,8 +75,8 @@ def main(page: ft.Page):
     set_countdown_field_disabled(e, True)
     on_time_change(e)
 
-    timer.on_count = lambda: update_text_count(e, f'{timer.actual_count}')
-    timer.on_finish = lambda: set_countdown_field_disabled(e, False)
+    timer.on_count = lambda _: update_text_count(e, f'{timer.actual_count}')
+    timer.on_finish = lambda _: set_countdown_field_disabled(e, False)
     timer.start()
     update_text_count(e, f'{timer.actual_count}')
     page.update()
@@ -123,8 +123,8 @@ def main(page: ft.Page):
   alarm_audio = ft.Audio(
     src=ALARM_AUDIO_SRC,
     balance=0,
-    volume=0,
-    autoplay=True,
+    volume=1,
+    autoplay=False,
     release_mode=ft.audio.ReleaseMode.STOP
   )
 
@@ -152,9 +152,6 @@ def main(page: ft.Page):
   )
   pause_button.color = ft.colors.BLACK
 
-
-  page.overlay.append(alarm_audio)
-  page.update()
 
   countdown_field_container = ft.Container(width=100)
   countdown_field_container.content = countdown_field
